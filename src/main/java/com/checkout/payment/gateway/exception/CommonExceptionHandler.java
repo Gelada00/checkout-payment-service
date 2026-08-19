@@ -19,4 +19,11 @@ public class CommonExceptionHandler {
     return new ResponseEntity<>(new ErrorResponse("Page not found"),
         HttpStatus.NOT_FOUND);
   }
+
+  @ExceptionHandler(AcquiringBankException.class)
+  public ResponseEntity<ErrorResponse> handleAcquiringBankException(AcquiringBankException ex) {
+    LOG.error("Acquiring bank error", ex);
+    return new ResponseEntity<>(new ErrorResponse("Unable to process payment"),
+        HttpStatus.SERVICE_UNAVAILABLE);
+  }
 }
